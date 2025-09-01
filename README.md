@@ -20,3 +20,7 @@ Incluye configuración de **GitHub Actions** para ejecutar la integración conti
    ```bash
    git clone https://github.com/Ccanchillo/Verificador-de-Palabras.git
    cd Verificador-de-Palabras
+
+---
+🔹 Este es un cambio de prueba en la rama desarrollo
+
