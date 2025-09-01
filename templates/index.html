@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Palabras</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+            flex-direction: column;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 550px;
+            border-top: 5px solid #007bff;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        #resultado {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Verificador de Palabras</h1>
+        <div class="form-group">
+            <input type="text" id="palabra" placeholder="Ej: anita lava la tina o amor">
+        </div>
+        <button onclick="verificarPalabras()">Verificar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        async function verificarPalabras() {
+            const palabra = document.getElementById('palabra').value;
+            const resultadoDiv = document.getElementById('resultado');
+            let data = new FormData();
+            data.append('palabra', palabra);
+
+            try {
+                const response = await fetch('/verificar', {
+                    method: 'POST',
+                    body: data
+                });
+                const result = await response.json();
+                resultadoDiv.innerHTML = result.resultado;
+            } catch (error) {
+                resultadoDiv.textContent = "Error: No se pudo conectar con el servidor.";
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
